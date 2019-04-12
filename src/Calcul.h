@@ -19,6 +19,7 @@ public:
     Calcul(); /// Default constructor of the object
     Calcul(int,rowvec); /// Constructor of the object that initializes both the n_max and the vector z
 
+    mat calculWn();
     mat calculPolynomeHermite(); /// This function computes the Hermite Polynomial using this recursive relation
 
     int getN();

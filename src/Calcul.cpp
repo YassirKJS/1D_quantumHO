@@ -44,6 +44,31 @@ mat Calcul::calculPolynomeHermite()
     return H;
 }
 
+int factorial(int n)
+{
+    if (n == 0)
+        return 1;
+    else if (n == 1)
+        return 1;
+    else if (n==2)
+        return 2;
+    else
+        return n * factorial(n-1); // recursive call to factorial()
+}
+
+mat Calcul::calculWn()
+{
+    rowvec exp_term = exp(-(z%z)/2);
+    mat H = this->calculPolynomeHermite();
+    mat W(n_max, z.n_elem);
+    for (int i = 0; i < this->n_max; ++i)
+    {
+        double first_term = (1/sqrt(pow(2, i)*factorial(i))) * pow(1/datum::pi, 0.25);
+        W.row(i) = first_term * (exp_term % H.row(i));
+    }
+    return W;
+}
+
 Calcul::~Calcul()
 {
 
