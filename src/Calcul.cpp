@@ -20,6 +20,14 @@ void Calcul::setN(int n_max)
 {
     this->n_max = n_max;
 }
+rowvec Calcul::getZ()
+{
+    return this->z;
+}
+void Calcul::setZ(rowvec z)
+{
+    this->z = z;
+}
 
 mat Calcul::calculPolynomeHermite()
 {
