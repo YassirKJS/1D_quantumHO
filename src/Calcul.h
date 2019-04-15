@@ -1,35 +1,51 @@
 /**
  * @file Calcul.h
-   @
+ *
+ * Header of Calcul class
+ *
  */
+
 #ifndef DEF_CALCUL
 #define DEF_CALCUL
-
 #include <armadillo>
+#include "Miscellaneous.h"
 using namespace arma;
 
-//! Calcul Class
-/*!
-    An instance of this class contains the n_max and a vector z
-    This Class's main purpose is to compute the solution of the 1D-HO Schrödinger equation
-*/
+/**
+ * @class Calcul
+ *
+ * This Class computes the Hermite Polynomial and the Wave function
+ *
+ */
+
 class Calcul
 {
-public:
-    Calcul(); /// Default constructor of the object
-    Calcul(int,rowvec); /// Constructor of the object that initializes both the n_max and the vector z
+    public:
+        /// Default constructor of the object
+        Calcul();
+        /// Constructor of the object that initializes both the n_max and the vector z
+        Calcul(int, rowvec);
 
-    mat calculWn();
-    mat calculPolynomeHermite(); /// This function computes the Hermite Polynomial using this recursive relation
+        mat calculWn();
+        /// This function computes the Hermite Polynomial using this recurrence relation
+        mat calculPolynomeHermite();
 
-    int getN();
-    void setN(int);
+        /// The getter of the n_max property
+        int getN();
+        /// The setter of the n_max property
+        void setN(int);
+        /// The getter of the Z property
+        void setZ(rowvec z);
+        /// The setter of the Z property
+        rowvec getZ();
 
+        /// Destructor of the object
+        ~Calcul();
 
-    ~Calcul();
-private:
-    int n_max;
-    rowvec z;
+        mat calculEnergy(int n, double a, double b, int N);
+    private:
+        int n_max; /// n_max is the maximum value of n of which we have to compute \f[\psi\f]
+        rowvec z; /// z is the entry vector for which we have to compute the Hermite polynomial and the wave function
 };
 
 #endif
