@@ -10,7 +10,6 @@
 #include <armadillo>
 #include "Calcul.h"
 #include "Miscellaneous.h"
-#include "Orthonormality.h"
 
 using namespace arma;
 
