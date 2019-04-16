@@ -49,6 +49,50 @@ class CalculTest : public CxxTest::TestSuite
 
 			TS_TRACE("********** END OF THE COMPARISON BETWEEN THE RESULT AND THE EXPECTED ONE ************");
 		}
+
+		/**
+		*    Test of the Computation of the wave function
+		*/
+		void testcalculWn(void)
+		{
+			mat z = rowvec({-2, -1, 0, 1, 2});
+			Calcul *c = new Calcul(3, z);
+			mat Wn = c->calculWn();
+			mat expected_W = {{0.101654, 0.455581, 0.751126, 0.455581, 0.101654},
+				{-0.28752, -0.644288, 0, 0.644288, 0.28752},
+				{0.43128, 0, -1.062252, 0, 0.43128}
+			};
+
+			TS_TRACE("********** STARTING THE COMPARISON BETWEEN THE RESULT AND THE EXPECTED ONE ************");
+
+			TS_TRACE("START TEST FOR W0");
+			double difference = norm(Wn.row(0) - expected_W.row(0), 2);
+			TS_ASSERT_DELTA(difference, 0, 0.00001);
+			TS_TRACE("END TEST FOR W0");
+
+			TS_TRACE("START TEST FOR W1");
+			difference = norm(Wn.row(1) - expected_W.row(1), 2);
+			TS_ASSERT_DELTA(difference, 0, 0.00001);
+			TS_TRACE("END TEST FOR W1");
+
+			TS_TRACE("START TEST FOR W1");
+			difference = norm(Wn.row(2) - expected_W.row(2), 2);
+			TS_ASSERT_DELTA(difference, 0, 0.00001);
+			TS_TRACE("END TEST FOR W1");
+
+			TS_TRACE("********** END OF THE COMPARISON BETWEEN THE RESULT AND THE EXPECTED ONE ************");
+		}
+
+		/**
+		*    Testing the factorial method
+		*/
+		void testFactorial(void)
+		{
+			Miscellaneous misc;
+			TS_TRACE("Testing Factorial");
+			int fac = misc.factorial(3);
+			TS_ASSERT_EQUALS(fac, 6);
+		}
 		
 };
 
