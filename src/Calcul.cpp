@@ -1,33 +1,94 @@
+**
+ * @file Calcul.cpp
+ *
+ * Implementation of the class Calcul
+ *
+ */
+#include <stdlib.h>
 #include "Calcul.h"
-#import <math.h>
+#include <math.h>
+#include <cmath>
 
+
+/** Default Constructor of Calcul class
+ *
+ *
+ */
 Calcul::Calcul()
 {
 
 }
 
+/** Constructor of Calcul class with given values
+ *
+ * @param n_max is the maximum value of n of which we have to compute \f[\psi\f]
+ * @param z is the entry vector
+ */
 Calcul::Calcul(int n_max, rowvec z)
 {
     this->n_max = n_max;
     this->z = z;
 }
 
+/** Getter of the n_max property
+ *
+ * @return This function returns the n_max value
+ *
+ */
 int Calcul::getN()
 {
     return this->n_max;
 }
+/** Setter of the n_max property
+ *
+ * This function sets the value of n_max
+ *
+ * @param n_max
+ *
+ */
 void Calcul::setN(int n_max)
 {
     this->n_max = n_max;
 }
+
+/** Getter of the z property
+ *
+ * @return This function returns the current vector z;
+ *
+ */
 rowvec Calcul::getZ()
 {
     return this->z;
 }
+
+/** Setter of the z property
+ *
+ * This function sets the value of n_max
+ *
+ * @param z
+ *
+ */
 void Calcul::setZ(rowvec z)
 {
     this->z = z;
 }
+
+/** Computing the Hermite Polynomial
+ *
+ *
+ * This function computes the Hermite Polynomial using the reccurence formula
+ *
+ * \#Definition(physicists version):
+ * \f[\forall n\ge 0, H_n(z)\equiv (-1)^n e^{z^2} \frac{d^n}{dz^n}\left( e^{-z^2} \right).\f]
+ *
+ * \#Reccurence relation:
+ * \f[H_0(z) = 1\f]
+ * \f[H_1(z) = 2z\f]
+ * \f[\forall n\ge 1, H_{n+1}(z) = 2zH_n(z)-2nH_{n-1}(z).\f]
+ *
+ * @return a matrix containing the values of the function
+ */
+
 
 mat Calcul::calculPolynomeHermite()
 {
@@ -69,30 +130,40 @@ mat Calcul::calculPolynomeHermite()
     return H;
 }
 
-int factorial(int n)
-{
-    if (n == 0)
-        return 1;
-    else if (n == 1)
-        return 1;
-    else if (n==2)
-        return 2;
-    else
-        return n * factorial(n-1); // recursive call to factorial()
-}
 
+/** Computing the solution of the wave function
+ *
+ *
+ * This function computes the wave function solutions
+ *
+ * \#The 1D-HO Schrödinger equation:
+ * \f[\left(\frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2\right)\psi_n = E_n\psi_n.\f]
+ *
+ * \#The analytic solutions form of the wave function:
+ * \f[\psi_n(z) = \frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}e^{-\frac{m\omega z^2}{2\hbar}}H_n\left(\sqrt{\frac{m\omega}{\hbar}} . z\right).\f]
+ *
+ * @return a matrix containing the values for each
+ */
 mat Calcul::calculWn()
 {
-    rowvec exp_term = exp(-(z%z)/2);
+
+    Miscellaneous misc;
+    rowvec exp_term = exp(-(z % z) / 2);
     mat H = this->calculPolynomeHermite();
     mat W(n_max, z.n_elem);
-    for (int i = 0; i < this->n_max; ++i)
+    for(int i = 0; i < this->n_max; ++i)
     {
-        double first_term = (1/sqrt(pow(2, i)*factorial(i))) * pow(1/datum::pi, 0.25);
+        double first_term = (1 / sqrt(pow(2, i) * misc.factorial(i))) * pow(1 / datum::pi, 0.25);
         W.row(i) = first_term * (exp_term % H.row(i));
     }
     return W;
+
 }
+
+/**
+*
+* Destructor of the object Calcul
+*/
 
 Calcul::~Calcul()
 {
