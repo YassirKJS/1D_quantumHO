@@ -10,6 +10,7 @@
 #include <armadillo>
 #include "Calcul.h"
 #include "Miscellaneous.h"
+#include "Orthonormality.h"
 
 using namespace arma;
 
@@ -93,6 +94,25 @@ class CalculTest : public CxxTest::TestSuite
 			int fac = misc.factorial(3);
 			TS_ASSERT_EQUALS(fac, 6);
 		}
+
+    /**
+    *    Testing the Orthonormality
+    */
+
+    void testOrthonormality(void)
+    {
+      TS_TRACE("Testing Orthonormality");
+      double q1 = Orthonormality::quad(6, 0, 0);
+      double q2 = Orthonormality::quad(6, 1, 1);
+      double q3 = Orthonormality::quad(5, 1, 1);
+      double q4 = Orthonormality::quad(6, 0, 1);
+      double q5 = Orthonormality::quad(6, 2, 3);
+      TS_ASSERT_DELTA(q1, 1.0, 0.0000001);
+      TS_ASSERT_DELTA(q2, 1.0, 0.0000001);
+      TS_ASSERT_DELTA(q3, 1.0, 0.0000001);
+      TS_ASSERT_DELTA(q4, 0.0, 0.0000001);
+      TS_ASSERT_DELTA(q5, 0.0, 0.0000001);
+    }
 		
 };
 

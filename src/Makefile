@@ -2,12 +2,12 @@ CC = g++
 CFLAGS = -std=c++11 -Wall
 TESTGEN = cxxtestgen
 TESTFLAGS = --error-printer
-TESTS = CalculTest.h
-TESTSCPP = Calcul.cpp Miscellaneous.cpp
-OBJSTEST = Calcul.o Miscellaneous.o 
+TESTS = CalculTest.h DataInterfaceTest.h Orthonormality.h
+TESTSCPP = DataInterface.cpp Calcul.cpp Miscellaneous.cpp Orthonormality.cpp
+OBJSTEST = DataInterface.o Calcul.o Miscellaneous.o Orthonormality.o
 TARGET = main
 TARGETTEST = test
-OBJS = main.cpp Calcul.cpp Miscellaneous.cpp DataInterface.cpp Orthonormality.cpp
+OBJS = main.cpp Calcul.cpp DataInterface.cpp Miscellaneous.cpp Orthonormality.cpp
 
 all: $(TARGET)
 
