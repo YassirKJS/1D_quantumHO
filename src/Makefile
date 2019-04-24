@@ -7,7 +7,7 @@ TESTSCPP = Calcul.cpp Miscellaneous.cpp
 OBJSTEST = Calcul.o Miscellaneous.o 
 TARGET = main
 TARGETTEST = test
-OBJS = main.cpp Calcul.cpp Miscellaneous.cpp
+OBJS = main.cpp Calcul.cpp Miscellaneous.cpp DataInterface.cpp Orthonormality.cpp
 
 all: $(TARGET)
 

@@ -3,6 +3,7 @@
 #include "Calcul.h"
 #include "DataInterface.h"
 #include "Miscellaneous.h"
+#include "Orthonormality.h"
 using namespace arma;
 using namespace std;
 
@@ -73,13 +74,17 @@ void writingSols()
   d.write(z, W);
 }
 
+void orthonormalityTest()
+{
+  std::cout << "Testing Orthonormality n = " << 4 << " m = " << 4 << " quad: " << Orthonormality::quad(6, 1, 1) << std::endl;
+}
+
 int main()
 {
-  //orthonormalityTest();
+  orthonormalityTest();
   //HermiteTest();
   //MatrixTest();
   //WnTest();
-  //energyTest();
-  writingSols();
+  //writingSols();
   return 0;
 }
