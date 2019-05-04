@@ -113,6 +113,26 @@ class CalculTest : public CxxTest::TestSuite
       TS_ASSERT_DELTA(q4, 0.0, 0.0000001);
       TS_ASSERT_DELTA(q5, 0.0, 0.0000001);
     }
+
+    /**
+    *    Testing the Energy conservation
+    */
+
+    void testEnergy(void)
+    {
+      TS_TRACE("Testing Energy");
+      Calcul *cal = new Calcul();
+      mat E1, E2;
+
+      E1 = cal->calculEnergy(2, -1, 1, 1000000);
+      mat m = {{0.5, 0.5, 0.5, 0.5, 0.5}, {1.5, 1.5, 1.5, 1.5, 1.5}};
+      double difference = norm(E1.rows(2, 6).t() - m, 2);
+      TS_ASSERT_DELTA(difference, 0, 0.001);
+
+      E2 = cal->calculEnergy(2, -1, 1, 1000000);
+      difference = norm(E1.rows(900, 904).t() - m, 2);
+      TS_ASSERT_DELTA(difference, 0, 0.001);
+    }
 		
 };
 
