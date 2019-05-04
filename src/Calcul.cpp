@@ -169,3 +169,29 @@ Calcul::~Calcul()
 {
 
 }
+
+mat Calcul::calculEnergy(int n, double a, double b, int N)
+{
+  mat E;
+  Miscellaneous misc;
+  double pas = (b - a) / N;
+  rowvec Z = arma::linspace<rowvec>(a, b + 2 * pas, N + 2);
+  this->z = Z;
+  this->n_max = n;
+  mat Psi = this->calculWn().t();
+  mat ZZ(n, N + 2);
+  for(int i = 0; i < ZZ.n_rows; i++)
+  {
+    ZZ.row(i) = z;
+  }
+  ZZ = ZZ.t();
+
+  mat dPsi = misc.deriv(Psi.rows(0, N), Psi.rows(1, N + 1), ZZ.rows(0, N), ZZ.rows(1, N + 1));
+  mat d2Psi = misc.deriv(dPsi.rows(0, N - 1), dPsi.rows(1, N), ZZ.rows(0, N - 1), ZZ.rows(1, N));
+  mat ZN = ZZ.rows(0, N - 1);
+  mat PsiN = Psi.rows(0, N - 1);
+
+  //E = -1 * h * h * d2Psi / (2 * m * PsiN) + m * w * w * ZN % ZN / 2;
+  E = -1 * 1 * 1 * d2Psi / (2 * 1 * PsiN) + 1 * 1 * 1 * ZN % ZN / 2;
+  return E;
+}
