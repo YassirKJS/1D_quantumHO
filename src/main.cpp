@@ -79,9 +79,35 @@ void orthonormalityTest()
   std::cout << "Testing Orthonormality n = " << 4 << " m = " << 4 << " quad: " << Orthonormality::quad(6, 1, 1) << std::endl;
 }
 
+void energyTest()
+{
+  mat E;
+  int i;
+  int N = 1000000;
+  int n = 5;
+
+  // Miscellaneous misc;
+  double b = 2;
+  double a = -2;
+
+  Calcul *cal = new Calcul();
+
+  for(i = 2; i <= n; i++)
+  {
+    cal->setN(i);
+    mat res;
+    res = cal->calculEnergy(i, a, b, N);
+  }
+
+  mat E2 = cal->calculEnergy(2, -2, 2, 1000000);
+  cout << "E2: " << E2.rows(2, 6) << endl;
+  mat m1 = {{0.5, 0.5, 0.5, 0.5, 0.5}, {1.5, 1.5, 1.5, 1.5, 1.5}};
+}
+
 int main()
 {
-  orthonormalityTest();
+  energyTest();
+  //orthonormalityTest();
   //HermiteTest();
   //MatrixTest();
   //WnTest();
