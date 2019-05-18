@@ -1,4 +1,4 @@
-**
+/*
  * @file Calcul.cpp
  *
  * Implementation of the class Calcul

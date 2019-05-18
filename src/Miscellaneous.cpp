@@ -27,3 +27,8 @@ int Miscellaneous::factorial(int n)
 		return n * factorial(n - 1); // recursive call to factorial()
 }
 
+arma::mat Miscellaneous::deriv(arma::mat Y1, arma::mat Y2, arma::mat X1, arma::mat X2)
+{
+  arma::mat derv = (Y2 - Y1) / (X2 - X1);
+  return derv;
+}
