@@ -1,0 +1,40 @@
+\form#0:\[\psi\]
+\form#1:\[\forall n\ge 0, H_n(z)\equiv (-1)^n e^{z^2} \frac{d^n}{dz^n}\left( e^{-z^2} \right).\]
+\form#2:\[H_0(z) = 1\]
+\form#3:\[H_1(z) = 2z\]
+\form#4:\[\forall n\ge 1, H_{n+1}(z) = 2zH_n(z)-2nH_{n-1}(z).\]
+\form#5:\[\left(\frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2\right)\psi_n = E_n\psi_n.\]
+\form#6:\[\psi_n(z) = \frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}e^{-\frac{m\omega z^2}{2\hbar}}H_n\left(\sqrt{\frac{m\omega}{\hbar}} . z\right).\]
+\form#7:$\psi$
+\form#8:$\hat{H}_{(z)}\psi_n(z) = E_n\psi_n(z)$
+\form#9:$\hat{H}_{(z)}\equiv \frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2, \hspace{5mm}\hat{p}_{(z)}\equiv -i\hbar\frac{\partial}{\partial z}.$
+\form#10:$\psi_n(z) = \frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}e^{-\frac{m\omega z^2}{2\hbar}}H_n\left(\sqrt{\frac{m\omega}{\hbar}} . z\right).$
+\form#11:$ H_n $
+\form#12:$H_0(z) = 1$
+\form#13:$H_1(z) = 2z$
+\form#14:$\forall n\ge 1, H_{n+1}(z) = 2zH_n(z)-2nH_{n-1}(z).$
+\form#15:$\forall (m,n), \int \psi^*_m(z)\psi_n(z) dz = \delta_{mn}.$
+\form#16:$\int_{-1}^1 f(x) dx \simeq \sum_{i=0}^{n-1}w_if(x_i)$
+\form#17:\[\forall (m,n), \int \psi^*_m(z)\psi_n(z) dz = \delta_{mn}.\]
+\form#18:\[\int_{a}^b \omega(x)g(x) dx \simeq \sum_{i=0}^{n-1}w^\omega_ig(x^\omega_i)\]
+\form#19:$a$
+\form#20:$b$
+\form#21:$\omega(x)$
+\form#22:$ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ\infty$
+\form#23:$+\infty$
+\form#24:$e^{-x^2}$
+\form#25:$w(x)$
+\form#26:$-\infinity$
+\form#27:$+\infinity$
+\form#28:$e^(-x^2)$
+\form#29:$ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ\infty$
+\form#30:$-\infty$
+\form#31:$ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ\infty$
+\form#32:$ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ\infty$
+\form#33:$ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ\infty$
+\form#34:$e^(-x^(2))$
+\form#35:$ÃÂ¢ÃÂÃÂ\infty$
+\form#36:$\(e^{-x^2}\)$
+\form#37:$Ã¢ÂÂ\infty$
+\form#38:$â\infty$
+\form#39:$−\infty$
