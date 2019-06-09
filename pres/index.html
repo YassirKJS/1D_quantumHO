@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Projet IPS</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="core/fonts/mono.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/animate.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/cinescript.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/style_core.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/mermaid.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/gitgraph.css"> 
+    <link rel="stylesheet" type="text/css" href="core/css/style_ensiie.css"> 
+  </head>
+  <body>
+    <textarea id="source" readonly>
+layout: true
+class: animated fadeIn middle numbers
+
+.footnote[
+[:book:](../toc/index.html)
+]
+
+???
+
+Some slide notes.
+
+Want some `\(\LaTeX\)` ?
+
+`$$a_{0}=\frac{1}{4}b_{1}$$`
+
+Some items:
+* first
+* second
+* third
+
+---
+
+<center>
+.title[
+IPS Project presentation - ENSIIE]
+
+<br/>
+.subtitle[
+Hamoud Mohamed Sneiba
+
+Khchaf Yassir
+
+Berrada Mohammed
+]
+</center>
+---
+#Subject
+
+## Solving the harmonic oscillator equation
+Schrödinger equation:
+`$$\hat{H}_{(z)}\psi_n(z) = E_n\psi_n(z)$$`
+avec
+`$$\hat{H}_{(z)}\equiv \frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2, \hspace{5mm}\hat{p}_{(z)}\equiv -i\hbar\frac{\partial}{\partial z}.$$`
+## Resulting 1D-HO Schrödinger equation
+.block[ Pour une particule de masse m, l'équation de Schrödinger s'écrit en 1D:
+`$$\left(\frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2\right)\psi_n = E_n\psi_n.$$` ]
+## Solutions:
+The analytic solutions take the form
+'$$\psi_n(z) = \frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}e^{-\frac{m\omega z^2}{2\hbar}}H_n\left(\sqrt{\frac{m\omega}{\hbar}} . z\right).$$'
+
+---
+
+#Project Structure
+
+.column.middle.hcenter.grow[
+.tree[
+Project
+* **src**
+    * Makefile
+    * *.h
+    * *.cpp
+* **doc**
+    * html
+    * latex
+* **resources**
+    * *.csv
+* **pres**
+    * ...
+* Makefile
+* Doxyfile
+* astyle.conf
+* ...
+]]
+
+
+---
+
+#Project Structure
+
+.column.middle.grow[
+.row.middle.grow[
+.column.w100.middle[
+![](images/classes.png)
+]]
+]
+
+---
+
+# Makefile
+
+.column.middle.grow[
+.row.hcenter.w90[
+.column.w20.middle[
+.tree[
+Project
+* ...
+* src
+    * ...
+    * **Makefile**
+* Makefile
+]]
+
+.column.w70[
+## .hcenter[`[Makefile]`]
+```Makefile
+CC = g++
+CFLAGS = -std=c++11 -Wall
+TESTGEN = cxxtestgen
+TESTFLAGS = --error-printer
+TESTS = CalculTest.h DataInterfaceTest.h
+TESTSCPP = DataInterface.cpp Calcul.cpp Miscellaneous.cpp
+OBJSTEST = DataInterface.o Calcul.o Miscellaneous.o
+TARGET = main
+TARGETTEST = test
+OBJS = main.cpp Calcul.cpp DataInterface.cpp Miscellaneous.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+  $(CC) $(CFLAGS) $^ -o $@ -larmadillo
+  ./$(TARGET)
+
+%.o: %.cpp %.h
+  $(CC) $(CFLAGS) $< -c -o $@
+
+$(TARGETTEST): $(TESTS)
+  $(CC) $(CFLAGS) -c $(TESTSCPP)
+  $(TESTGEN) $(TESTFLAGS) -o test.cpp $(TESTS)
+  $(CC) $(CFLAGS) -o $@  test.cpp $(OBJSTEST)
+  ./$@
+
+.PHONY: test clean
+
+clean:
+  rm -f $(TARGET) $(TARGETTEST) *.o t.cpp test.cpp *.orig
+```
+]]
+]
+
+---
+
+# Makefile
+
+.column.middle.grow[
+.row.hcenter.w80[
+.column.w20.middle[
+.tree[
+Project
+* ...
+* src
+    * ...
+    * Makefile
+* **Makefile**
+]]
+
+.column.w70[
+## .hcenter[`[Makefile]`]
+```Makefile
+all: src
+
+src:
+  $(MAKE) -C src
+test:
+  $(MAKE) -C src test
+doc :
+  doxygen
+format:
+  astyle --options=astyle.conf src/*.cpp,*.h
+.PHONY: all src test clean doc
+clean:
+  $(MAKE) -C src clean
+  
+
+```
+]]
+]
+
+---
+
+#Documentation
+
+
+.hcenter[
+ ![](images/doc1.png)
+]
+
+---
+#Documentation
+
+
+.hcenter[
+.vcenter[
+ ![](images/doc2.png)
+]]
+
+---
+
+# Code example
+.column.middle.grow[
+## .hcenter[`[Calcul.h]`]
+```C++
+/**
+* @class Calcul
+*/
+class Calcul
+{
+  public:
+    Calcul();
+    Calcul(int, rowvec);
+    mat calculWn();
+    mat calculPolynomeHermite();
+    int getN();
+    void setN(int);
+    void setZ(rowvec z);
+    rowvec getZ();
+    ~Calcul();
+    calculEnergy(int n, double a, double b, int N);
+  private:
+    int n_max;
+    rowvec z;
+};
+
+
+```]
+---
+# Code example
+## `$$H_n(Z)$$`
+.column.middle.grow[
+## .hcenter[`[Calcul.cpp]`]
+```C++
+mat Calcul::calculPolynomeHermite()
+{
+  mat H(n_max, z.n_elem);
+
+  if (n_max == 0)
+  {
+    H = z.ones(size(z));
+  }
+  else
+  {
+    if (n_max == 1)
+    {
+      return z.for_each([](arma::mat::elem_type& val)
+            {
+                val = 2 * val;
+            });
+    }
+    else {
+      for(int i = 0; i < z.n_elem; ++i)
+      {
+        H(0, i) = 1;
+      }
+      rowvec h2 = rowvec(z.n_elem);
+      h2 = 2 * z;
+
+      H.row(1) = h2;
+
+      for(int i = 2; i < n_max; i++)
+      {
+        rowvec hn = rowvec(z.n_elem);
+        hn = h2 % H.row(i - 1) - (2 * i) * H.row(i - 2);
+        H.row(i) = hn;
+      }
+    }   
+  }
+  return H;
+}
+
+```]
+---
+
+# Code example
+## `$$\psi_n(Z)$$`
+.column.middle.grow[
+## .hcenter[`[Calcul.cpp]`]
+```C++
+/** Computing the solution of the wave function
+ *
+ *
+ * This function computes the wave function solutions
+ *
+ * \#The 1D-HO Schrödinger equation:
+ * \f[\left(\frac{\hat{p}_{(z)}^2}{2m} + \frac{1}{2}m\omega^2\hat{z}^2\right)\psi_n = E_n\psi_n.\f]
+ *
+ * \#The analytic solutions form of the wave function:
+ * \f[\psi_n(z) = \frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}e^{-\frac{m\omega z^2}{2\hbar}}H_n\left(\sqrt{\frac{m\omega}{\hbar}} . z\right).\f]
+ *
+ * @return a matrix containing the values for each
+ */
+mat Calcul::calculWn()
+{
+  Miscellaneous misc;
+  rowvec exp_term = exp(-(z % z) / 2);
+  mat H = this->calculPolynomeHermite();
+  mat W(n_max, z.n_elem);
+  for(int i = 0; i < this->n_max; ++i)
+  {
+    double first_term = (1 / sqrt(pow(2, i) * misc.factorial(i))) * pow(1 / datum::pi, 0.25);
+    W.row(i) = first_term * (exp_term % H.row(i));
+  }
+  return W;
+}
+
+
+```]
+---
+
+
+# Unit Tests Example
+## `$$H_n(Z)$$`
+.column.middle.grow[
+## .hcenter[`[CalculTest.h]`]
+```C++
+void testPolynomeHermite(void)
+    {
+      mat z = rowvec({-2, -1, 0, 1, 2});
+      Calcul *c = new Calcul(3, z);
+      mat H = c->calculPolynomeHermite();     
+      mat expected_H = {{1, 1, 1, 1, 1},
+               {-4, -2, 0, 2, 4},
+               {12, 0, -4, 0, 12}};
+
+      TS_TRACE("********** STARTING THE COMPARISON BETWEEN THE RESULT AND THE EXPECTED ONE ************");
+
+      TS_TRACE("START TEST FOR H0");
+      double difference = norm(H.row(0) - expected_H.row(0), 2);
+      TS_ASSERT_EQUALS(difference, 0);
+      TS_TRACE("END TEST FOR H0");
+
+      TS_TRACE("START TEST FOR H1");
+      difference = norm(H.row(1) - expected_H.row(1), 2);
+      TS_ASSERT_EQUALS(difference, 0);
+      TS_TRACE("END TEST FOR H1");
+
+      TS_TRACE("START TEST FOR H2");
+      difference = norm(H.row(2) - expected_H.row(2), 2);
+      TS_ASSERT_EQUALS(difference, 0);
+      TS_TRACE("END TEST FOR H2");
+
+      TS_TRACE("********** END OF THE COMPARISON BETWEEN THE RESULT AND THE EXPECTED ONE ************");
+    }
+
+```]
+
+---
+
+#History
+
+
+.hcenter[
+.vcenter[
+ ![](images/history.png)
+]]
+
+---
+
+#First Solution
+
+
+.hcenter[
+ ![](images/RplotW1.png)
+]
+
+---
+
+#Second Solution
+
+
+.hcenter[
+ ![](images/RplotW2.png)
+]
+
+---
+
+#All Solutions
+
+
+.hcenter[
+ ![](images/RplotW.png)
+]
+
+---
+
+#Orthonomality Verification
+
+.block[To prove orthonormality, we have:
+`$$\forall (m,n), \int \psi^*_m(z)\psi_n(z) dz = \delta_{mn}.$$`]
+
+.column.w70.hcenter[
+       |              | Orthonormality |     |   
+------ | -------------|---------|
+       |   k = 0      | k = 1   | k = 3
+j = 0  |  1           |    0    |  4.37079e-21
+j = 1  |      0       |     1   |  0
+  ...  |    ...          |   ...      |   ...
+j = 2  | 7.07627-17|     0   |  1.71568e-21
+]
+
+
+
+    </textarea>
+
+    <script src="core/javascript/remark.js"></script>
+    <script src="core/javascript/plotly.js" type="text/javascript"></script>
+    <script src="core/javascript/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script src="core/javascript/emojify.js" type="text/javascript"></script>
+    <script src="core/javascript/mermaid.js" type="text/javascript"></script>
+    <script src="core/javascript/term.js" type="text/javascript"></script>
+    <script src="core/javascript/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="core/javascript/extend-jquery.js" type="text/javascript"></script>
+    <script src="core/javascript/cinescript.js" type="text/javascript"></script>
+    <script src="core/javascript/gitgraph.js" type="text/javascript"></script>
+    <script>
+
+    // === Remark.js initialization ===
+    var slideshow = remark.create({
+      highlightStyle: 'monokai',
+      countIncrementalSlides: false,
+      highlightLines: true,
+      highlightInLineCode: false
+    });
+
+    // === Mermaid.js initialization ===
+    mermaid.initialize({
+      startOnLoad: false,
+      cloneCssStyles: false,
+      flowchart:{
+        height: 50
+      },
+      sequenceDiagram:{
+        width: 110,
+        height: 30
+      }
+    });
+
+    function initMermaid(s) {
+      var diagrams = document.querySelectorAll('.mermaid');
+      var i;
+      for(i=0;i<diagrams.length;i++){
+        if(diagrams[i].offsetWidth>0){
+          mermaid.init(undefined, diagrams[i]);
+        }
+      }
+    }
+
+    slideshow.on('afterShowSlide', initMermaid);
+    initMermaid(slideshow.getSlides()[slideshow.getCurrentSlideIndex()]);
+
+    // === MathJax.js initialization ===
+    MathJax.Hub.Config({ tex2jax: { skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] } }); 
+    MathJax.Hub.Queue(function() { $(MathJax.Hub.getAllJax()).map(function(index, elem) { return(elem.SourceElement()); }).parent().addClass('has-jax'); });
+    MathJax.Hub.Configured();
+
+    // === Emojify.js initialization ===
+    emojify.run();
+
+    // === Cinescript initialization ===
+    $(document).ready(init_cinescripts);
+
+    // ===== END =====
+  
+
+    </script>
+  </body>
+</html>
